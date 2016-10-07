@@ -207,6 +207,27 @@ fully described in :doc:`the Parameters List here <parameters>`.
 .. image:: ../images/sonar22.png
     :target: ../_images/sonar22.png
 
+**Alternative Solution to the Stop Pins for MaxSonar**
+If the stop pins (RNGFNDx_STOP_PIN) do not work reliably, like in Version 2.51 
+for APM 2.6, or there are simply not enough pins on your autopilot, like on the 
+PixRacer V1.0, or if you simply like beautiful shortcuts, then this solution is
+for you.  
+Just connect Pin4 of Sonar1 to Pin5 of Sonar2 and Pin5 of Sonar2 to Pin4 of Sonar1.
+Why it works:
+Pin4 set to High for more than 20uS enables ranging, Low disables it.
+Pin5 delivers serial output, which can be used to trigger ranging on the other sonar,
+because the high bits of the serial word last long enough.
+
+To make it more beautiful:
+Set Pin 1 of both sonars to Low.  This causes Pin5 to create a short impulse (100uS)
+instead of serial output.
+
+Experience:
+I tested with my Oscilloscope and found the two sonars ranging every 200ms each, 
+without disturbing each other and withough loosing a ranging sample.  So the 
+combined update rate of this range finder with 2 sonars is 5Hz.
+
+
 Testing your sonar setup
 ========================
 
